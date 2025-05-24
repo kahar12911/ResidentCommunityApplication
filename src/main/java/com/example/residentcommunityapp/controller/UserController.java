@@ -5,7 +5,10 @@ import com.example.residentcommunityapp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -20,6 +23,13 @@ public class UserController {
         System.out.println("PASSWORD: " + user.getPassword());
         User registeredUser  = userService.registerUser (user);
         return ResponseEntity.ok(registeredUser );
+    }
+
+    // Role-Guarded Endpoint
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @GetMapping("/all")
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(userService.getUsers());
     }
 
 //    @PostMapping("/login")

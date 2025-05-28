@@ -29,7 +29,8 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/users/register","/test/all").permitAll()
+                        .requestMatchers("/auth/**", "/users/register","/test/all" ,"/api/payment/create-link/**",    // ✅ Add this
+                                "/api/payment/callback").permitAll()
                         .anyRequest().authenticated()
                 );
 

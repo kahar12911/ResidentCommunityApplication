@@ -36,19 +36,24 @@ public class AuthController {
 //    }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody Map<String, String> loginData) {
+    public ResponseEntity<?> login(@RequestBody Map<String, String> loginData) {
         String mobile = loginData.get("mobile");
         String password = loginData.get("password");
 
-        System.out.println("LOGIN ATTEMPT: " + mobile + " / " + password); // ✅ Verify in console
+        System.out.println("LOGIN ATTEMPT: " + mobile + " / " + password);
 
         boolean isValid = userService.authenticateUser(mobile, password);
         if (isValid) {
-            return ResponseEntity.ok("Login successful.");
+            User user = userRepository.findByMobileOrEmail(mobile, mobile)
+                    .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+            String token = jwtUtil.generateToken(user);
+            return ResponseEntity.ok(Map.of("token", token));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.");
         }
     }
+
 
 
 

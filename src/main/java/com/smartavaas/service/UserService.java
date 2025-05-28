@@ -28,10 +28,9 @@ public class UserService {
     }
 
     public boolean authenticateUser(String mobile, String rawPassword) {
-        Optional<User> optionalUser = userRepository.findByMobile(mobile);
-        if (optionalUser.isPresent()) {
-            return passwordEncoder.matches(rawPassword, optionalUser.get().getPassword());
-        }
-        return false;
+        return userRepository.findByMobile(mobile)
+                .map(user -> passwordEncoder.matches(rawPassword, user.getPassword()))
+                .orElse(false);
     }
+
 }

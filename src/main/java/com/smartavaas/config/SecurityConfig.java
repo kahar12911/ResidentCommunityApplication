@@ -38,9 +38,9 @@ public class SecurityConfig {
                                 "/auth/**",
                                 "/users/register",
                                 "/test/all",
-                                "/api/payment/create-link/**",
                                 "/api/payment/callback"
                         ).permitAll()
+                        .requestMatchers("/api/payment/create-link/**").authenticated()
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

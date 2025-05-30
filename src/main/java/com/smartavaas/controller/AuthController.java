@@ -48,7 +48,10 @@ public class AuthController {
                     .orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
             String token = jwtUtil.generateToken(user);
-            return ResponseEntity.ok(Map.of("token", token));
+            String firstname = user.getFirstname();
+            String lastname = user.getLastname();
+            return ResponseEntity.ok(Map.of("token", token,
+                    "Fullname", firstname+" "+lastname));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.");
         }

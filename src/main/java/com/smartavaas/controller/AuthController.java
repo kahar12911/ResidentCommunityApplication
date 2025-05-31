@@ -51,9 +51,12 @@ public class AuthController {
             String token = jwtUtil.generateToken(user);
             String firstname = user.getFirstname();
             String lastname = user.getLastname();
+<<<<<<< HEAD
             /*List<String> roleNames = user.getRoles().stream()
                     .map(role -> role.getName())
                     .toList();*/
+=======
+>>>>>>> 1c1c668c517984357fdab1247b9fe4b999ac533b
             return ResponseEntity.ok(Map.of("token", token,
                     "fullname", firstname+" "+lastname));
         } else {

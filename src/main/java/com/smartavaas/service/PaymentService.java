@@ -58,7 +58,10 @@ public class PaymentService {
             paymentLinkRequest.put("amount", new BigDecimal(rent.getAmount()).multiply(BigDecimal.valueOf(100)));
             paymentLinkRequest.put("currency", "INR");
             paymentLinkRequest.put("callback_url", "https://drab-edyth-kahar12911-2937e591.koyeb.app/api/payment/callback");
+<<<<<<< HEAD
             //paymentLinkRequest.put("callback_method", "POST");
+=======
+>>>>>>> 1c1c668c517984357fdab1247b9fe4b999ac533b
             paymentLinkRequest.put("reference_id", rent.getId().toString());
             System.out.println("Payment Link Request: " + paymentLinkRequest);
 

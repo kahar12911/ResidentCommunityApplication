@@ -51,7 +51,7 @@ public class AuthController {
             String firstname = user.getFirstname();
             String lastname = user.getLastname();
             return ResponseEntity.ok(Map.of("token", token,
-                    "Fullname", firstname+" "+lastname));
+                    "fullname", firstname+" "+lastname));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid credentials.");
         }

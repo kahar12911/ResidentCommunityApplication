@@ -61,7 +61,6 @@ public class PaymentService {
             //paymentLinkRequest.put("callback_method", "POST");
             paymentLinkRequest.put("reference_id", rent.getId().toString());
             System.out.println("Payment Link Request: " + paymentLinkRequest);
-            System.out.println("payment link request  "+paymentLinkRequest.toString());
 
             PaymentLink paymentLink = razorpayClient.paymentLink.create(paymentLinkRequest);
             System.out.println("Payment Link: " + paymentLinkRequest);

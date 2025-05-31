@@ -12,6 +12,9 @@ public class RegisterRequest {
     @NotBlank(message = "Name is required")
     private String name;
 
+    @NotBlank(message = "Mobile is required")
+    private String mobile;
+
     @Email(message = "Email is invalid")
     @NotBlank(message = "Email is required")
     private String email;
@@ -19,6 +22,5 @@ public class RegisterRequest {
     @NotBlank(message = "Password is required")
     private String password;
 
-    // Optional field - only needed if admin wants to assign custom roles
     private Set<String> roles;
 }

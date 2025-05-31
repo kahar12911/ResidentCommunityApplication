@@ -32,8 +32,6 @@ public class AuthService {
     @Autowired
     private RoleService roleService;
 
-    @Autowired
-    private OtpService otpService;
     private final Map<String, String> otpStorage = new HashMap<>();
 
     //user.setRoles(Set.of(userRole));
@@ -54,9 +52,6 @@ public class AuthService {
         }
 
         userRepository.save(user);
-
-        String otp = otpService.generateOtp(user.getMobile());
-        otpService.sendOtp(user.getMobile(), otp);
     }
 
 
@@ -83,11 +78,11 @@ public class AuthService {
         return jwtUtil.generateToken(user);
     }
 
-    public String registerUser(User user) {
-        userRepository.save(user);
-        String otp = otpService.generateOtp(user.getMobile());
-        otpService.sendOtp(user.getMobile(), otp);
-        return "User registered. OTP sent.";
-    }
+//    public String registerUser(User user) {
+//        userRepository.save(user);
+//        String otp = otpService.generateOtp(user.getMobile());
+//        otpService.sendOtp(user.getMobile(), otp);
+//        return "User registered. OTP sent.";
+//    }
 
 }

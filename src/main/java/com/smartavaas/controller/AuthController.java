@@ -1,12 +1,10 @@
 package com.smartavaas.controller;
 
-import com.smartavaas.dto.OtpRequest;
 import com.smartavaas.dto.RegisterRequest;
 import com.smartavaas.model.User;
 import com.smartavaas.repository.UserRepository;
 import com.smartavaas.security.JwtUtil;
 import com.smartavaas.service.AuthService;
-import com.smartavaas.service.OtpService;
 import com.smartavaas.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -33,9 +29,6 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private OtpService otpService;
 
 //    @PostMapping("/register")
 //    public ResponseEntity<String> registerUser(@RequestBody User user) {
@@ -107,14 +100,6 @@ public class AuthController {
 //            return ResponseEntity.status(401).body("Invalid OTP. Verification failed.");
 //        }
 //    } **/
-    @PostMapping("/verify-otp")
-    public ResponseEntity<?> verifyOtp(@RequestBody OtpRequest request) {
-        boolean valid = otpService.validateOtp(request.getMobile(), request.getOtp());
-        if (valid) {
-            return ResponseEntity.ok("OTP Verified");
-        }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid OTP");
-    }
 
 
 

@@ -11,5 +11,7 @@ public class Role {
 
     @Enumerated(EnumType.STRING)
     private RoleType name; // e.g., ROLE_USER, ROLE_ADMIN
+
+
 }
 

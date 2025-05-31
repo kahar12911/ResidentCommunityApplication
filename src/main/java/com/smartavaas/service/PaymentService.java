@@ -39,7 +39,12 @@ public class PaymentService {
     @PostConstruct
     public void initRazorpayClient() {
         try {
+            if (razorpayKey == null || razorpaySecret == null) {
+                throw new RuntimeException("Razorpay credentials not loaded from properties");
+            }
             this.razorpayClient = new RazorpayClient(razorpayKey, razorpaySecret);
+            System.out.println("Razorpay Key: " + razorpayKey);
+            System.out.println("Razorpay Secret: " + razorpaySecret);
         } catch (Exception e) {
             throw new RuntimeException("Failed to initialize Razorpay client", e);
         }
@@ -53,10 +58,11 @@ public class PaymentService {
             paymentLinkRequest.put("amount", new BigDecimal(rent.getAmount()).multiply(BigDecimal.valueOf(100)));
             paymentLinkRequest.put("currency", "INR");
             paymentLinkRequest.put("callback_url", "https://drab-edyth-kahar12911-2937e591.koyeb.app/api/payment/callback");
-            paymentLinkRequest.put("callback_method", "post");
             paymentLinkRequest.put("reference_id", rent.getId().toString());
+            System.out.println("Payment Link Request: " + paymentLinkRequest);
 
             PaymentLink paymentLink = razorpayClient.paymentLink.create(paymentLinkRequest);
+            System.out.println("Payment Link: " + paymentLinkRequest);
 
             return new PaymentLinkResponse(paymentLink.get("id"), paymentLink.get("short_url"));
         } catch (Exception e) {

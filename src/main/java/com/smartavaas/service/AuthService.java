@@ -31,6 +31,7 @@ public class AuthService {
 
     @Autowired
     private RoleService roleService;
+
     private final Map<String, String> otpStorage = new HashMap<>();
 
     //user.setRoles(Set.of(userRole));
@@ -39,10 +40,11 @@ public class AuthService {
 
     public void register(RegisterRequest request) {
         User user = new User();
+        user.setFirstname(request.getName()); // Assuming 'name' is first name
+        user.setMobile(request.getMobile());
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
-        // Assign roles based on request
         if (request.getRoles() != null && request.getRoles().contains("ROLE_ADMIN")) {
             user.setRoles(roleService.getAdminRoles());
         } else {
@@ -51,6 +53,7 @@ public class AuthService {
 
         userRepository.save(user);
     }
+
 
 
 
@@ -74,4 +77,12 @@ public class AuthService {
         // Generate JWT after successful OTP verification
         return jwtUtil.generateToken(user);
     }
+
+//    public String registerUser(User user) {
+//        userRepository.save(user);
+//        String otp = otpService.generateOtp(user.getMobile());
+//        otpService.sendOtp(user.getMobile(), otp);
+//        return "User registered. OTP sent.";
+//    }
+
 }
